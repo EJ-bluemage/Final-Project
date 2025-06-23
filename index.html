@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Goodreads List</title>
+  <!-- Google Font: Georgia -->
+  <link href="https://fonts.googleapis.com/css2?family=Georgia&display=swap" rel="stylesheet" />
+  <!-- External CSS file -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Flex styling for left side of landing page */
+    .landing-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Landing Page Section -->
+<div id="landingPage" class="landing-container">
+  <div class="landing-left">
+    <div class="landing-box">
+      <h1 class="landing-title">Goodreads Lists</h1>
+      <p class="landing-subtitle">Discover, explore, and enjoy your favorite books with a warm cup of coffee.</p>
+      <button class="landing-button" onclick="goToListSelection()">Browse Collection</button>
+      
+      <!-- Modal Buttons for About and Team -->
+      <div class="modal-buttons">
+        <button id="toggleAboutBtn" class="about-link-button">About</button>
+        <button id="toggleTeamBtn" class="team-link-button">The Team</button>
+      </div>
+
+      <div class="carousel-container">
+  <button class="carousel-btn left">&lt;</button>
+  <div class="carousel-track-wrapper">
+    <div class="carousel-track">
+      <img class="carousel-book" src="covers/solitude.jpg" alt="Book 1">
+      <img class="carousel-book" src="covers/wuthering.jpg" alt="Book 2">
+      <img class="carousel-book" src="covers/perfume.jpg" alt="Book 3">
+      <img class="carousel-book" src="covers/elsewhere_2.jpg" alt="Book 4">
+      <img class="carousel-book" src="covers/dorian.jpg" alt="Book 5">
+    </div>
+  </div>
+  <button class="carousel-btn right">&gt;</button>
+</div>
+    </div>
+    
+  </div>
+
+  <!-- Team Modal -->
+  <div id="teamModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span> <!-- Close Button -->
+      <h2 style="text-align: center; color: #5a3e1b;">Meet the Team</h2>
+      
+      <!-- Grid of Team Members -->
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="profile/member1.png" alt="Member 1">
+          <p>Agasino, Gale Franchesca</p>
+          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        </div>
+        <div class="team-member">
+          <img src="profile/member2.jpg" alt="Member 2">
+          <p>Ducusin, Emmanuel Jesus</p>
+          <a href="https://www.linkedin.com/in/emmanuel-jesus-ducusin-029170330/" target="_blank">LinkedIn</a>
+        </div>
+        <div class="team-member">
+          <img src="profile/member3.png" alt="Member 3">
+          <p>Ragonot, Aira Catherine</p>
+          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        </div>
+        <div class="team-member">
+          <img src="profile/member4.png" alt="Member 4">
+          <p>Tuling, Iris</p>
+          <a href="https://www.linkedin.com/in/iris-tuling-721a98275/" target="_blank">LinkedIn</a>
+        </div>
+        <div class="team-member">
+          <img src="profile/member5.png" alt="Member 5">
+          <p>Viray, Kurt Germagne</p>
+          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        </div>
+        <div class="team-member">
+          <img src="profile/member6.png" alt="Member 6">
+          <p>Uy, Kurt Russel</p>
+          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Modal -->
+  <div id="aboutModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span> <!-- Close Button -->
+      <h2 style="text-align: center; color: #5a3e1b;">About This Project</h2>
+      <p style="margin-top: 20px; color: #5a3e1b; font-style: italic;">
+        This website was created in compliance to the developers final project in COSC 203 (Design and Analysis Algorithm) where they were tasked to solve a real-world problem using basic algorithms.
+      </p>
+      <p style="margin-top: 10px; color: #5a3e1b;">
+        In recent discussions online, Goodreads List has been a topic of major concern, particularly with its lack of a proper search function.
+        Readers and authors that use this feature are forced to scroll all the way down and click multiple "next" buttons to seek for a particular book.
+        With this in mind, the developers concocted a combination of Quick Sort and Binary Search algorithms to effectively search for a book inside said lists.
+        To test the efficiency of the algorithms in the real-world, the simulation website has produced three lists that contains 20, 100, and 1001 books respectively.
+        This setup ensures a fair and practical evaluation of the search and sort functions in handling lists of different sizes.
+      </p>
+      <p style="margin-top: 10px; color: #5a3e1b;">
+        Goodreads and Amazon are trademarks of Amazon.com, Inc. or its affiliates. This project is not affiliated with, endorsed by, or sponsored by Goodreads or Amazon.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- List Selection Page -->
+<div id="listSelection" style="display:none; text-align:center; margin-top: 100px;">
+  <div class="list-box">
+    <!-- Back Button to Landing -->
+    <div class="back-btn">
+      <button onclick="goBackToLanding()">← Back</button>
+    </div>
+    <h2 style="color:#5a3e1b;">Choose a Book List</h2>
+    <div class="list-buttons">
+      <!-- List Options -->
+      <div class="list-option">
+        <button class="styled-button list-animated" onclick="loadBookList('emman')">20 Books</button>
+      </div>
+      <div class="list-option">
+        <button class="styled-button list-animated" onclick="loadBookList('100')">100 Books</button>
+      </div>
+      <div class="list-option">
+        <button class="styled-button list-animated" onclick="loadBookList('1001')">1001 Books</button>
+      </div>
+      <div class="list-option">
+        <button class="styled-button list-animated">+</button> <!-- Optional Future List -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Book List Page -->
+<div id="mainPage" style="display:none;">
+  <div class="header">
+    <!-- Back Button to List Selection -->
+    <div class="back-btn">
+      <button onclick="goBackToSelection()">← Back</button>
+    </div>
+    <!-- Dynamic Header for Book List -->
+    <h2 id="listTitle">Book List</h2>
+    <p id="listSubtitle"><strong>A curated collection</strong></p>
+    <p id="listQuote"><em>"Handpicked books across time."</em></p>
+    <img src="profile/ej.jpg" alt="Profile Picture" class="profile-pic" id="listProfilePic">
+  </div>
+
+  <!-- Progress Tracker -->
+<div id="progressTracker">
+  <div id="progressInfo">
+    <div id="progressText">
+      <span>You’ve favorited</span><br>
+      <span id="bookCount">0 of 0 books</span>
+    </div>
+    <div id="progressPercent">0%</div>
+  </div>
+  <div id="progressBarContainer">
+    <div id="progressBar"></div>
+    <img id="progressIcon" src="icons/person.png" alt="Person Icon">
+  </div>
+</div>
+
+
+  <!-- Search Box (move it here) -->
+  <div id="searchBox">
+    <input type="text" id="searchInput" placeholder="Search book title...">
+    <button id="searchBtn">Search</button>
+    <button id="resetBtn" style="display:none;">Back</button>
+  </div>
+
+  <!-- Search Result Message -->
+  <div id="searchResult"></div>
+
+  <!-- Book List Container -->
+  <div class="book-list" id="bookList"></div>
+
+  <!-- Pagination Controls -->
+  <div id="pagination"></div>
+</div>
+
+<!-- Link to External JS -->
+<script src="script.js"></script>
+</body>
+</html>
