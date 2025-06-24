@@ -67,7 +67,7 @@ body {
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 90%;
+  max-width: 400px;
 }
 
 .landing-title {
@@ -113,14 +113,6 @@ body {
 
 .link-button:hover {
   color: #a47148;
-}
-
-@media (max-width: 600px) {
-  .landing-container {
-    flex-direction: column;      
-    align-items: center;       
-    padding: 20px;               
-  }
 }
 
 /* ========================
@@ -568,6 +560,7 @@ body {
 #progressTracker {
   position: fixed;
   top: 65px;
+  left: auto;
   right: 30px;
   width: 220px;
   background-color: #fff8f0;
@@ -576,6 +569,7 @@ body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   font-family: 'Georgia', serif;
   z-index: 9999;
+  cursor: move; /* make it clear that it's draggable */
 }
 
 #progressInfo {

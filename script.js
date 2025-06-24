@@ -396,3 +396,52 @@ function updateProgressTracker() {
   icon.style.left = `${iconOffset}px`; // center icon (20px wide)
 }
 
+makeDraggable(document.getElementById("progressTracker"));
+
+function makeDraggable(el) {
+  let offsetX = 0, offsetY = 0, isDragging = false;
+
+  el.style.cursor = "move";
+
+  el.addEventListener("mousedown", dragStart);
+  document.addEventListener("mouseup", dragEnd);
+  document.addEventListener("mousemove", drag);
+
+  el.addEventListener("touchstart", dragStartTouch);
+  document.addEventListener("touchmove", dragTouch);
+  document.addEventListener("touchend", dragEnd);
+
+  function dragStart(e) {
+    isDragging = true;
+    offsetX = e.clientX - el.offsetLeft;
+    offsetY = e.clientY - el.offsetTop;
+    el.style.zIndex = 10000;
+  }
+
+  function drag(e) {
+    if (!isDragging) return;
+    el.style.left = (e.clientX - offsetX) + "px";
+    el.style.top = (e.clientY - offsetY) + "px";
+    el.style.position = "fixed";
+  }
+
+  function dragStartTouch(e) {
+    isDragging = true;
+    const touch = e.touches[0];
+    offsetX = touch.clientX - el.offsetLeft;
+    offsetY = touch.clientY - el.offsetTop;
+    el.style.zIndex = 10000;
+  }
+
+  function dragTouch(e) {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    el.style.left = (touch.clientX - offsetX) + "px";
+    el.style.top = (touch.clientY - offsetY) + "px";
+    el.style.position = "fixed";
+  }
+
+  function dragEnd() {
+    isDragging = false;
+  }
+}
