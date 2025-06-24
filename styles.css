@@ -202,8 +202,9 @@ body {
 .modal-content {
   background-color: #fffaf0;
   margin: 60px auto;
-  padding: 30px 40px;
+  padding: 30px 20px;           /* reduce right padding */
   border-radius: 12px;
+  width: 90%;                   /* added for better control */
   max-width: 800px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   animation: fadeIn 0.3s ease-in-out;
