@@ -68,12 +68,42 @@ const favorites = new Set();
 // =======================
 
 // Quicksort: Alphabetical by Title
-function quickSort(arr) {
-  if (arr.length <= 1) return arr;
-  const [pivot, ...rest] = arr;
-  const left = rest.filter(b => b.title.toLowerCase() < pivot.title.toLowerCase());
-  const right = rest.filter(b => b.title.toLowerCase() >= pivot.title.toLowerCase());
-  return [...quickSort(left), pivot, ...quickSort(right)];
+// Swap two books in the array
+function swap(arr, i, j) {
+  const temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+
+// Partition the array by pivot title
+function partition(arr, low, high) {
+  // Pick a random pivot index between low and high
+  const randomIndex = Math.floor(Math.random() * (high - low + 1)) + low;
+  swap(arr, randomIndex, high); // Move it to end like usual
+
+  const pivot = arr[high].title.toLowerCase();
+  let i = low - 1;
+
+  for (let j = low; j < high; j++) {
+    if (arr[j].title.toLowerCase() < pivot) {
+      i++;
+      swap(arr, i, j);
+    }
+  }
+
+  swap(arr, i + 1, high);
+  return i + 1;
+}
+
+// Quicksort main function (recursive, in-place)
+function quickSort(arr, low = 0, high = arr.length - 1) {
+  if (low < high) {
+    const pi = partition(arr, low, high); // pivot index
+
+    quickSort(arr, low, pi - 1);  // left side
+    quickSort(arr, pi + 1, high); // right side
+  }
+  return arr;
 }
 
 // Binary Search: Find All Matching Titles (Case-Insensitive)
@@ -125,9 +155,6 @@ function renderBooks(page = 1, bookArray = currentBookArray) {
   bookList.appendChild(bookItem);
 });
 
-
-
-
   renderPagination(page, bookArray);
    updateProgressTracker(); // update progress bar here
 
@@ -150,9 +177,6 @@ heartButtons.forEach(button => {
     updateProgressTracker();
   });
 });
-
-
-
 
 }
 
@@ -209,7 +233,8 @@ function attachHeartEvents() {
 function loadBookList(listType) {
   document.getElementById('listSelection').style.display = 'none';
   document.getElementById('mainPage').style.display = 'block';
-  currentBookArray = quickSort(books.filter(b => b.list === listType));
+  currentBookArray = books.filter(b => b.list === listType);
+  quickSort(currentBookArray, 0, currentBookArray.length - 1); 
   currentPage = 1;
 
   // Update list details based on list type
